@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Merry Christmas tuanflute275</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: url(bg1.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+
+      #snowField {
+        width: 100%;
+        height: 100%;
+      }
+
+      #countdown {
+        font-size: 18px !important;
+        position: absolute;
+        top: 17%;
+        left: 45%;
+        transform: translate(-22%, -50%);
+        font-size: 48px;
+        color: white;
+        font-family: "Segoe UI", sans-serif;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      }
+
+      #message {
+        position: absolute;
+        top: 60%;
+        left: 75%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+        cursor: pointer;
+      }
+
+      #popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 450px;
+        text-align: center;
+        font-size: 25px;
+      }
+
+      #popup button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #ffcc00;
+        border: none;
+        cursor: pointer;
+      }
+
+      #popup button:hover {
+        background-color: #ff9900;
+      }
+    </style>
+  </head>
+
+  <body>
+    <audio id="audioEl" autoplay></audio>
+    <canvas id="snowField"></canvas>
+    <div id="countdown"></div>
+    <div id="message">Nhấn vào tôi</div>
+    <div id="popup">
+      <p id="popupMessage"></p>
+      <button onclick="closePopup()">Đóng</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const audioList = [
+            "/last-chrismas.mp3", 
+            "/hoa-nhip-giang-sinh.mp3", 
+            "/1.mp3",
+        ];
+
+        // Hàm xử lý khi bài hát kết thúc
+        function handleSongEnded() {
+          const audioEl = document.getElementById("audioEl");
+          const randomAudio =
+            audioList[Math.floor(Math.random() * audioList.length)];
+          audioEl.src = randomAudio;
+          audioEl.muted = false;
+          audioEl.play().catch((error) => {
+            console.error("Phát nhạc thất bại: ", error);
+          });
+          fadeInVolume(audioEl);
+        }
+
+        // Hàm làm âm lượng tăng dần
+        function fadeInVolume(audioEl) {
+          let volume = 0; // Bắt đầu với âm lượng bằng 0
+          audioEl.volume = volume;
+          const interval = setInterval(function () {
+            if (volume < 1) {
+              volume += 0.05; // Tăng âm lượng mỗi lần
+              audioEl.volume = volume;
+            } else {
+              clearInterval(interval); // Dừng lại khi âm lượng đạt tối đa
+            }
+          }, 200); // Mỗi 200ms tăng âm lượng
+        }
+
+        // Gắn sự kiện "ended" cho phần tử audio
+        const audioEl = document.getElementById("audioEl");
+        audioEl.addEventListener("ended", handleSongEnded);
+
+        // Code hiển thị overlay và xử lý sự kiện khi click để phát nhạc
+        const overlay = document.createElement("div");
+        overlay.id = "overlay";
+        overlay.style.position = "fixed";
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+        overlay.style.color = "white";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.fontSize = "2em";
+        overlay.style.zIndex = 1000;
+        overlay.innerHTML = "Nhấp vào bất kỳ đâu để phát nhạc";
+        document.body.appendChild(overlay);
+
+        overlay.addEventListener("click", function () {
+          const audioEl = document.getElementById("audioEl");
+          const randomAudio =
+            audioList[Math.floor(Math.random() * audioList.length)];
+          audioEl.src = randomAudio;
+          audioEl.muted = false;
+          audioEl.play().catch((error) => {
+            console.error("Phát nhạc thất bại: ", error);
+          });
+          overlay.style.display = "none";
+        });
+        // Phát nhạc tự động khi trang tải
+        window.addEventListener("load", function () {
+            handleSongEnded();
+            const btn = document.getElementById('overlay');
+            //btn.click()
+        });
+      });
+    </script>
+    <script>
+      var canvas = document.querySelector("#snowField");
+      var ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var totalSnow = 100;
+      var shakeAmount = 10; // Số lượng lắc qua lại
+      var shakeInterval = 0; // Thời gian lắc
+      var shakeDirection = 1; // Phương hướng lắc (trái/phải)
+
+      function Snow() {
+        this.x = Math.round(Math.random() * canvas.width);
+        this.y = Math.round(Math.random() * canvas.height);
+        this.r = Math.random() * 4 + 1;
+        this.d = Math.random() * totalSnow;
+        this.a = Math.random() * 5;
+      }
+
+      Snow.prototype.update = function () {
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.closePath();
+
+        this.x += Math.sin(this.a) / 4;
+        this.y += Math.random() * 1 + 1;
+
+        if (this.x > canvas.width || this.x < 0) {
+          this.x = Math.random() * canvas.width;
+        }
+        if (this.y > canvas.height) {
+          this.y = 0;
+        }
+        this.a += 0.01;
+      };
+
+      var snows = [];
+      var imgTree = new Image();
+      imgTree.src = "tree.png";
+      var snowman = new Image();
+      snowman.src = "snowman.png";
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(
+          imgTree,
+          515,
+          canvas.height - imgTree.height / 4 + 10,
+          500,
+          620
+        );
+
+        // Tạo hiệu ứng lắc cho snowman
+        var shakeX = Math.sin(shakeInterval) * shakeAmount; // Lắc theo phương ngang
+        ctx.save(); // Save the current context state
+        ctx.translate(950 + shakeX, 500); // Di chuyển snowman và áp dụng lắc
+        ctx.drawImage(snowman, 90, 20, 400, 250);
+        ctx.restore(); // Restore the context state
+
+        // Cập nhật hiệu ứng lắc
+        shakeInterval += 0.1;
+        if (shakeInterval > Math.PI * 2) {
+          shakeInterval = 0;
+        }
+
+        for (var i = 0; i < snows.length; i++) {
+          snows[i].update();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      function updateCountdown() {
+        var now = new Date();
+        var christmas = new Date(now.getFullYear(), 11, 25); // Giáng Sinh vào ngày 25 tháng 12
+
+        if (now > christmas) {
+          christmas.setFullYear(christmas.getFullYear() + 1);
+        }
+
+        var diff = christmas - now;
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        days = String(days).padStart(2, '0');
+        hours = String(hours).padStart(2, '0');
+        minutes = String(minutes).padStart(2, '0');
+        seconds = String(seconds).padStart(2, '0');
+        document.getElementById("countdown").textContent =
+          "Còn " +
+          days +
+          " ngày " +
+          hours +
+          " giờ " +
+          minutes +
+          " phút " +
+          seconds +
+          " giây";
+
+        setTimeout(updateCountdown, 1000);
+      }
+
+      function showMessage() {
+        var message = document.getElementById("message");
+        message.style.display = "block"; // Hiện tin nhắn
+        setTimeout(function () {
+          message.style.display = "none"; // Ẩn tin nhắn sau 3 giây
+        }, 3000);
+      }
+
+      function showMessage() {
+        var message = document.getElementById("message");
+        message.style.display = "block";
+        setTimeout(function () {
+          message.style.display = "none";
+        }, 3000);
+      }
+
+      function showPopup() {
+        var messages = [
+          "Chúc bạn một mùa Giáng Sinh vui vẻ!",
+          "Giáng Sinh an lành và hạnh phúc!",
+          "Mong rằng bạn sẽ có những khoảnh khắc tuyệt vời trong mùa Giáng Sinh này!",
+          "Giáng Sinh ấm áp và đầy yêu thương!",
+          "Chúc bạn một năm mới tràn ngập niềm vui và hạnh phúc!",
+          "Giáng Sinh này chúc bạn sức khỏe, hạnh phúc và thành công!",
+          "Mong rằng bạn sẽ luôn tìm thấy niềm vui trong những điều nhỏ bé nhất trong mùa lễ hội này!",
+          "Chúc bạn và gia đình một Giáng Sinh tràn đầy yêu thương và ấm áp!",
+          "Hy vọng rằng mùa Giáng Sinh sẽ mang đến cho bạn sự bình yên và niềm vui không ngừng!",
+          "Chúc bạn một Giáng Sinh ngập tràn niềm vui, tình yêu và những khoảnh khắc tuyệt vời!",
+          "Chúc mọi ước mơ của bạn sẽ trở thành hiện thực trong mùa lễ này!",
+          "Giáng Sinh này, chúc bạn tìm thấy bình an trong tâm hồn và niềm vui trong mọi khoảnh khắc!",
+          "Mùa Giáng Sinh an lành sẽ mang đến cho bạn những món quà tuyệt vời nhất!",
+          "Chúc bạn một mùa Giáng Sinh thật ấm áp bên gia đình và những người thân yêu!",
+          "Giáng Sinh này, hãy để niềm vui, tình yêu và hy vọng lan tỏa đến mọi người xung quanh bạn!",
+          "Mong rằng năm mới sẽ mang đến cho bạn nhiều cơ hội mới và những thành công lớn!",
+        ];
+
+        var randomMessage =
+          messages[Math.floor(Math.random() * messages.length)];
+
+        // Hiển thị popup với thông điệp ngẫu nhiên
+        document.getElementById("popupMessage").textContent = randomMessage;
+        document.getElementById("popup").style.display = "block";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
+
+      window.onload = function () {
+        for (var i = 0; i < totalSnow; ++i) {
+          var _snow = new Snow();
+          snows.push(_snow);
+        }
+
+        draw();
+        updateCountdown();
+
+        // Hiển thị tin nhắn ngẫu nhiên
+        setInterval(showMessage, Math.random() * 5000 + 3000);
+        document.getElementById("message").addEventListener("click", showPopup);
+      };
+    </script>
+  </body>
+</html>
