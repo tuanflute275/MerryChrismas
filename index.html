@@ -2,6 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://merry-chrismas-one.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Merry Christmas tuanflute275" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="./seo.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="merry-chrismas-one.vercel.app" />
+    <meta
+      property="twitter:url"
+      content="https://merry-chrismas-one.vercel.app/"
+    />
+    <meta name="twitter:title" content="Merry Christmas tuanflute275" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="./seo.png" />
     <title>Merry Christmas tuanflute275</title>
     <style>
       * {
@@ -74,6 +91,19 @@
       #popup button:hover {
         background-color: #ff9900;
       }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .btn {
+        animation: floatUp 5s ease-in-out infinite, blink 4s infinite;
+      }
     </style>
   </head>
 
@@ -90,9 +120,9 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const audioList = [
-            "/last-chrismas.mp3", 
-            "/hoa-nhip-giang-sinh.mp3", 
-            "/1.mp3",
+          "/last-chrismas.mp3",
+          "/hoa-nhip-giang-sinh.mp3",
+          "/1.mp3",
         ];
 
         // Hàm xử lý khi bài hát kết thúc
@@ -157,9 +187,9 @@
         });
         // Phát nhạc tự động khi trang tải
         window.addEventListener("load", function () {
-            handleSongEnded();
-            const btn = document.getElementById('overlay');
-            //btn.click()
+          handleSongEnded();
+          const btn = document.getElementById("overlay");
+          //btn.click()
         });
       });
     </script>
@@ -252,10 +282,10 @@
         );
         var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        days = String(days).padStart(2, '0');
-        hours = String(hours).padStart(2, '0');
-        minutes = String(minutes).padStart(2, '0');
-        seconds = String(seconds).padStart(2, '0');
+        days = String(days).padStart(2, "0");
+        hours = String(hours).padStart(2, "0");
+        minutes = String(minutes).padStart(2, "0");
+        seconds = String(seconds).padStart(2, "0");
         document.getElementById("countdown").textContent =
           "Còn " +
           days +
