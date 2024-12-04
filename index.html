@@ -252,7 +252,7 @@
         var shakeX = Math.sin(shakeInterval) * shakeAmount; // Lắc theo phương ngang
         ctx.save(); // Save the current context state
         ctx.translate(950 + shakeX, 500); // Di chuyển snowman và áp dụng lắc
-        ctx.drawImage(snowman, 90, 20, 400, 250);
+        ctx.drawImage(snowman, 90, canvas.height - imgTree.height / 3 + 100, 400, 250);
         ctx.restore(); // Restore the context state
 
         // Cập nhật hiệu ứng lắc
