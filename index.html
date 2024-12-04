@@ -20,11 +20,19 @@
     <meta name="twitter:description" content="" />
     <meta name="twitter:image" content="./seo.png" />
     <title>Merry Christmas tuanflute275</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
       }
 
       body {
@@ -44,11 +52,11 @@
         position: absolute;
         top: 17%;
         left: 45%;
-        transform: translate(-22%, -50%);
+        transform: translate(-24%, -50%);
         font-size: 48px;
         color: white;
-        font-family: "Segoe UI", sans-serif;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
       }
 
       #message {
@@ -156,40 +164,23 @@
         const audioEl = document.getElementById("audioEl");
         audioEl.addEventListener("ended", handleSongEnded);
 
-        // Code hiển thị overlay và xử lý sự kiện khi click để phát nhạc
-        const overlay = document.createElement("div");
-        overlay.id = "overlay";
-        overlay.style.position = "fixed";
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.width = "100%";
-        overlay.style.height = "100%";
-        overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
-        overlay.style.color = "white";
-        overlay.style.display = "flex";
-        overlay.style.alignItems = "center";
-        overlay.style.justifyContent = "center";
-        overlay.style.fontSize = "2em";
-        overlay.style.zIndex = 1000;
-        overlay.innerHTML = "Nhấp vào bất kỳ đâu để phát nhạc";
-        document.body.appendChild(overlay);
-
-        overlay.addEventListener("click", function () {
-          const audioEl = document.getElementById("audioEl");
-          const randomAudio =
-            audioList[Math.floor(Math.random() * audioList.length)];
-          audioEl.src = randomAudio;
-          audioEl.muted = false;
-          audioEl.play().catch((error) => {
-            console.error("Phát nhạc thất bại: ", error);
-          });
-          overlay.style.display = "none";
-        });
-        // Phát nhạc tự động khi trang tải
-        window.addEventListener("load", function () {
-          handleSongEnded();
-          const btn = document.getElementById("overlay");
-          //btn.click()
+        var countMouse = 0;
+        var mouse = document.getElementById("message");
+        mouse.addEventListener("click", function () {
+          countMouse++;
+          console.log(countMouse);
+          if (countMouse <= 1) {
+            const audioEl = document.getElementById("audioEl");
+            const randomAudio =
+              audioList[Math.floor(Math.random() * audioList.length)];
+            audioEl.src = randomAudio;
+            audioEl.muted = false;
+            audioEl.play().catch((error) => {
+              console.error("Phát nhạc thất bại: ", error);
+            });
+          } else {
+            console.error("Đang phát nhạc: ");
+          }
         });
       });
     </script>
@@ -200,7 +191,10 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      var totalSnow = 100;
+      var countDownCss = document.getElementById("countdown");
+      countDownCss.style.height = canvas.height / 20 + 0 + "px";
+
+      var totalSnow = Math.random() * 1000 + 100;
       var shakeAmount = 10; // Số lượng lắc qua lại
       var shakeInterval = 0; // Thời gian lắc
       var shakeDirection = 1; // Phương hướng lắc (trái/phải)
@@ -252,7 +246,13 @@
         var shakeX = Math.sin(shakeInterval) * shakeAmount; // Lắc theo phương ngang
         ctx.save(); // Save the current context state
         ctx.translate(950 + shakeX, 500); // Di chuyển snowman và áp dụng lắc
-        ctx.drawImage(snowman, 90, canvas.height - imgTree.height / 3 + 105, 400, 250);
+        ctx.drawImage(
+          snowman,
+          90,
+          canvas.height - imgTree.height / 3 + 105,
+          400,
+          250
+        );
         ctx.restore(); // Restore the context state
 
         // Cập nhật hiệu ứng lắc
@@ -300,22 +300,6 @@
         setTimeout(updateCountdown, 1000);
       }
 
-      function showMessage() {
-        var message = document.getElementById("message");
-        message.style.display = "block"; // Hiện tin nhắn
-        setTimeout(function () {
-          message.style.display = "none"; // Ẩn tin nhắn sau 3 giây
-        }, 3000);
-      }
-
-      function showMessage() {
-        var message = document.getElementById("message");
-        message.style.display = "block";
-        setTimeout(function () {
-          message.style.display = "none";
-        }, 3000);
-      }
-
       function showPopup() {
         var messages = [
           "Chúc bạn một mùa Giáng Sinh vui vẻ!",
@@ -348,6 +332,13 @@
         document.getElementById("popup").style.display = "none";
       }
 
+      function showMessage() {
+        var message = document.getElementById("message");
+        message.style.display = "block"; // Hiện tin nhắn
+        setTimeout(function () {
+          message.style.display = "none"; // Ẩn tin nhắn sau 3 giây
+        }, 3000);
+      }
       window.onload = function () {
         for (var i = 0; i < totalSnow; ++i) {
           var _snow = new Snow();

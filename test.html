@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giáng Sinh - Đập Quà</title>
+  <style>
+    .gift-box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      margin: 10px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .gift-box:active {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Đập Quà Giáng Sinh!</h1>
+  <div id="giftBoxes">
+    <div class="gift-box" onclick="openGift(this)"></div>
+    <div class="gift-box" onclick="openGift(this)"></div>
+    <div class="gift-box" onclick="openGift(this)"></div>
+  </div>
+
+  <script>
+    function openGift(box) {
+      box.style.backgroundColor = "yellow";  // Mở quà
+      alert("Chúc mừng bạn đã nhận được một món quà!");
+    }
+  </script>
+</body>
+</html>
