@@ -33,6 +33,11 @@
         padding: 0;
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
+        /* bỏ bôi đen dòng chữ */
+        user-select: none;
+        -webkit-user-select: none; /* Dành cho Safari */
+        -moz-user-select: none; /* Dành cho Firefox */
+        -ms-user-select: none;
       }
 
       body {
@@ -112,6 +117,29 @@
       .btn {
         animation: floatUp 5s ease-in-out infinite, blink 4s infinite;
       }
+
+      .popup1 {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Nội dung popup */
+      .popup-content {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 400px;
+      }
     </style>
   </head>
 
@@ -124,13 +152,57 @@
       <p id="popupMessage"></p>
       <button onclick="closePopup()">Đóng</button>
     </div>
+    <!-- <div style="margin: 0;padding: 0;">
+      <a
+      style="position: absolute;"
+        name=""
+        id=""
+        class="btn btn-primary"
+        href="https://www.facebook.com/profile.php?id=100047425502024"
+        target="_blank"
+        role="button"
+      >
+        <img
+          height="20px"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png"
+          alt=""
+        />
+      </a>
+    </div> -->
 
+    <script>
+      function isMobileOrTablet() {
+        const width = window.innerWidth;
+        console.log(width);
+        return width <= 1500; // Kiểm tra nếu chiều rộng màn hình nhỏ hơn hoặc bằng 1024px (Điện thoại hoặc Máy tính bảng)
+      }
+      // Hiển thị popup nếu là điện thoại hoặc máy tính bảng
+      if (isMobileOrTablet()) {
+        document.body.innerHTML = "";
+        // Thay đổi nền của body (nếu bạn muốn)
+        document.body.style.background = "rgba(0, 0, 0, 0.7)";
+
+        // Hiển thị thông báo hoặc popup nếu cần
+        const popup = document.createElement("div");
+        popup.style.position = "absolute";
+        popup.style.top = "50%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.padding = "20px";
+        popup.style.backgroundColor = "rgb(244, 55, 55)";
+        popup.style.color = "#ffffff";
+        popup.style.borderRadius = "10px";
+        popup.innerHTML = "Trang này không hỗ trợ điện thoại và máy tính bảng!";
+        document.body.appendChild(popup);
+      }
+    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const audioList = [
           "/last-chrismas.mp3",
           "/hoa-nhip-giang-sinh.mp3",
           "/1.mp3",
+          "/chill.mp3",
         ];
 
         // Hàm xử lý khi bài hát kết thúc
@@ -194,11 +266,12 @@
       var countDownCss = document.getElementById("countdown");
       countDownCss.style.height = canvas.height / 20 + 0 + "px";
 
-      var totalSnow = Math.random() * 1000 + 100;
+      var totalSnow = Math.random() * 800 + 100;
       var shakeAmount = 10; // Số lượng lắc qua lại
       var shakeInterval = 0; // Thời gian lắc
       var shakeDirection = 1; // Phương hướng lắc (trái/phải)
 
+      // vẽ tuyết
       function Snow() {
         this.x = Math.round(Math.random() * canvas.width);
         this.y = Math.round(Math.random() * canvas.height);
@@ -227,16 +300,19 @@
       };
 
       var snows = [];
+      var isHolding = false;
+      var holdInterval;
       var imgTree = new Image();
       imgTree.src = "tree.png";
       var snowman = new Image();
       snowman.src = "snowman.png";
 
+      // vẽ các dối tượng canvas
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(
           imgTree,
-          515,
+          canvas.width - imgTree.width / 2 + 70,
           canvas.height - imgTree.height / 4 + 10,
           500,
           620
@@ -339,6 +415,24 @@
           message.style.display = "none"; // Ẩn tin nhắn sau 3 giây
         }, 3000);
       }
+
+      function spawnSanta() {
+        const santa = document.createElement("img");
+        santa.src = "santa.png";
+        santa.className = "santa";
+        santa.style.position = "absolute";
+        santa.style.left = 10 + "px";
+        santa.style.top = 30 + "px";
+        santa.style.width = "100px";
+        santa.style.cursor = "pointer";
+        santa.onclick = function () {
+          console.log("Bạn đã tìm thấy ông già Noel! 🎁");
+          //santa.remove();
+        };
+        document.body.appendChild(santa);
+        setTimeout(spawnSanta, 5000);
+      }
+      spawnSanta();
       window.onload = function () {
         for (var i = 0; i < totalSnow; ++i) {
           var _snow = new Snow();
@@ -347,8 +441,6 @@
 
         draw();
         updateCountdown();
-
-        // Hiển thị tin nhắn ngẫu nhiên
         setInterval(showMessage, Math.random() * 5000 + 3000);
         document.getElementById("message").addEventListener("click", showPopup);
       };

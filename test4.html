@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup Cảnh Báo</title>
+    <style>
+      .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Nội dung popup */
+      .popup-content {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 400px;
+      }
+
+      /* Nút đóng */
+      button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <p>
+          Trang này không hỗ trợ trên điện thoại hoặc máy tính bảng. Vui lòng
+          truy cập trên máy tính để bàn.
+        </p>
+        <button id="closePopup">Đóng</button>
+      </div>
+    </div>
+
+    <script>
+      function isMobileOrTablet() {
+        const width = window.innerWidth;
+        return width <= 1024; // Kiểm tra nếu chiều rộng màn hình nhỏ hơn hoặc bằng 1024px (Điện thoại hoặc Máy tính bảng)
+      }
+
+      console.log(isMobileOrTablet)
+      // Hiển thị popup nếu là điện thoại hoặc máy tính bảng
+      if (isMobileOrTablet()) {
+        document.getElementById("popup").style.display = "flex"; // Hiển thị popup
+      }
+
+      // Đóng popup khi nhấn nút
+      document
+        .getElementById("closePopup")
+        .addEventListener("click", function () {
+          document.getElementById("popup").style.display = "none"; // Ẩn popup
+        });
+    </script>
+  </body>
+</html>
