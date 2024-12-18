@@ -144,3 +144,5 @@ const setting = document.getElementById("setting-btn");
     console.log(1)
     submenu.style.display = (submenu.style.display === "block") ? "none" : "block";  // Chuyển đổi giữa hiển thị và ẩn
   });
+
+  console.log("CODE BY TUANFLUTE275")
