@@ -2,7 +2,7 @@
 function isMobileOrTablet() {
   const width = window.innerWidth;
   console.log(width);
-  return width <= 1500; // Kiểm tra nếu chiều rộng màn hình nhỏ hơn hoặc bằng 1024px (Điện thoại hoặc Máy tính bảng)
+  return width <= 1000; // Kiểm tra nếu chiều rộng màn hình nhỏ hơn hoặc bằng 1024px (Điện thoại hoặc Máy tính bảng)
 }
 // Hiển thị popup nếu là điện thoại hoặc máy tính bảng
 if (isMobileOrTablet()) {
