@@ -613,7 +613,7 @@ footer img {
   width: 40px;
   height: 40px;
   position: fixed;
-  bottom: 60px;
+  bottom: 110px;
   right: 20px;
   display: none;
   font-size: 25px;
@@ -633,6 +633,55 @@ footer img {
 #scroll-to-top:hover {
   background-color: #70c6eb;
   cursor: pointer;
+}
+
+
+#fireworks-btn {
+  width: 150px;
+  height: 50px;
+  position: fixed;
+  bottom: 10px;  /* Vị trí nút cách nút scroll-to-top */
+  right: 20px;
+  display: block;
+  font-size: 20px;
+  border-radius: 25px;
+  text-align: center;
+  line-height: 50px;
+  background: #f39c12;
+  color: #ffffff;
+  font-weight: 900;
+  z-index: 999999999999;
+  transition: .2s;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#fireworks-btn:hover {
+  background-color: #e67e22;
+}
+
+.hvr-radial-out {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.hvr-radial-out:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.5s ease;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.hvr-radial-out:hover:before {
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .hvr-radial-out:hover {

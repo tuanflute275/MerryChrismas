@@ -72,16 +72,16 @@ document.getElementById("scroll-to-top").onclick = function () {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-// document.querySelectorAll("a[href^='#']").forEach(anchor => {
-//   anchor.addEventListener("click", function (e) {
-//     e.preventDefault(); // Ngừng hành động mặc định
+document.querySelectorAll("a[href^='#']").forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault(); // Ngừng hành động mặc định
 
-//     document.querySelector(this.getAttribute("href")).scrollIntoView({
-//       behavior: "smooth", // Cuộn mượt mà
-//       block: "start" // Đảm bảo cuộn tới phần bắt đầu của mục tiêu
-//     });
-//   });
-// });
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth", // Cuộn mượt mà
+      block: "start" // Đảm bảo cuộn tới phần bắt đầu của mục tiêu
+    });
+  });
+});
 
 
 
@@ -106,8 +106,6 @@ const observer = new IntersectionObserver((entries) => {
 
 // Đăng ký observer cho mỗi section
 sections.forEach(section => observer.observe(section));
-
-
 
 
 // Set the date we're counting down to
