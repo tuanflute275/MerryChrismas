@@ -6,20 +6,22 @@
   <!-- Required meta tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
- <!-- Facebook Meta Tags -->
-<meta property="og:url" content="https://merry-chrismas-by-tuanflute.vercel.app/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="🎄 Merry Christmas from tuanflute275 🎁">
-<meta property="og:description" content="Send your Christmas greetings with joy and love.">
-<meta property="og:image" content="https://opengraph.b-cdn.net/production/images/7649741c-ae0d-4ec9-a3de-769d9f2c1ead.png?token=oqdom1kDvUcMCB8N_zqvZHEbj2MenT-PylqCwMxpymU&height=520&width=1200&expires=33270515159">
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://merry-chrismas-by-tuanflute.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="🎄 Merry Christmas from tuanflute275 🎁">
+  <meta property="og:description" content="Send your Christmas greetings with joy and love.">
+  <meta property="og:image"
+    content="https://opengraph.b-cdn.net/production/images/7649741c-ae0d-4ec9-a3de-769d9f2c1ead.png?token=oqdom1kDvUcMCB8N_zqvZHEbj2MenT-PylqCwMxpymU&height=520&width=1200&expires=33270515159">
 
-<!-- Twitter Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta property="twitter:domain" content="merry-chrismas-by-tuanflute.vercel.app">
-<meta property="twitter:url" content="https://merry-chrismas-by-tuanflute.vercel.app/">
-<meta name="twitter:title" content="🎄 Merry Christmas from tuanflute275 🎁">
-<meta name="twitter:description" content="Send your Christmas greetings with joy and love.">
-<meta name="twitter:image" content="https://opengraph.b-cdn.net/production/images/7649741c-ae0d-4ec9-a3de-769d9f2c1ead.png?token=oqdom1kDvUcMCB8N_zqvZHEbj2MenT-PylqCwMxpymU&height=520&width=1200&expires=33270515159">
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="merry-chrismas-by-tuanflute.vercel.app">
+  <meta property="twitter:url" content="https://merry-chrismas-by-tuanflute.vercel.app/">
+  <meta name="twitter:title" content="🎄 Merry Christmas from tuanflute275 🎁">
+  <meta name="twitter:description" content="Send your Christmas greetings with joy and love.">
+  <meta name="twitter:image"
+    content="https://opengraph.b-cdn.net/production/images/7649741c-ae0d-4ec9-a3de-769d9f2c1ead.png?token=oqdom1kDvUcMCB8N_zqvZHEbj2MenT-PylqCwMxpymU&height=520&width=1200&expires=33270515159">
 
 
 
@@ -37,6 +39,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
   <script type="text/javascript" src="./javascript/snow.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body>
@@ -384,46 +389,37 @@
         <div class="row">
           <div class="col-lg-7 col-sm-7 col-xs-12">
             <div class="contact-block">
-              <form id="contactForm" novalidate="true">
+              <form id="contactForm" method="post" action="">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required=""
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
                         data-error="Please enter your name" />
-                      <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" placeholder="Your Email" id="email" class="form-control" name="name"
-                        required="" data-error="Please enter your email" />
-                      <div class="help-block with-errors"></div>
+                      <input type="text" placeholder="Your Email" id="email" class="form-control" name="email"
+                        data-error="Please enter your email" />
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <input type="text" placeholder="Your number" id="number" class="form-control" name="number"
-                        required="" data-error="Please enter your number" />
-                      <div class="help-block with-errors"></div>
+                        data-error="Please enter your number" />
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <textarea class="form-control" id="message" placeholder="Your Message" rows="8"
-                        data-error="Write your message" required=""></textarea>
-                      <div class="help-block with-errors"></div>
+                      <textarea class="form-control" id="message" placeholder="Your Message" rows="8"></textarea>
                     </div>
                     <div class="submit-button text-center">
-                      <button class="btn btn-common disabled" id="submit" type="submit"
-                        style="pointer-events: all; cursor: pointer">
-                        Send Message
-                      </button>
-                      <div id="msgSubmit" class="h3 text-center hidden"></div>
-                      <div class="clearfix"></div>
+                      <button class="btn btn-common" id="submit" type="submit">Send Message</button>
                     </div>
                   </div>
                 </div>
               </form>
+
             </div>
           </div>
 
@@ -532,6 +528,61 @@
     crossorigin="anonymous"></script>
   <script src="./javascript/audio.js"></script>
   <script src="./javascript/script.js"></script>
+  <script>
+    $(document).ready(function () {
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+
+      // Hàm kiểm tra số điện thoại Việt Nam
+      function validatePhoneNumber(number) {
+        const re = /^(0[3-9])\d{8}$/; // Kiểm tra số điện thoại Việt Nam (từ 10 đến 11 chữ số)
+        return re.test(number);
+      }
+
+      $("#contactForm").on("submit", function (event) {
+        // Chặn hành vi submit mặc định
+        event.preventDefault();
+
+        // Lấy giá trị các trường
+        const name = $("#name").val().trim();
+        const email = $("#email").val().trim();
+        const number = $("#number").val().trim();
+        const message = $("#message").val().trim();
+
+        // Kiểm tra dữ liệu
+        if (!name && !email && !number && !message) {
+          toastr.error("No data provided!");
+        } else {
+          let isValid = true;
+          if (!validateEmail(email)) {
+            toastr.error("Please enter a valid email address.");
+            isValid = false;
+          }
+          if (!validatePhoneNumber(number)) {
+            toastr.error("Please enter a valid phone number (Vietnamese format).");
+            isValid = false;
+          }
+
+          if (isValid) {
+            const formData = {
+              name: name,
+              email: email,
+              number: number,
+              message: message
+            };
+
+            // Kiểm tra xem đã có dữ liệu lưu trữ chưa, nếu có thì thêm mới vào
+            let storedData = JSON.parse(localStorage.getItem('formData')) || [];
+            storedData.push(formData);
+            localStorage.setItem('dataContact', JSON.stringify(storedData));
+            toastr.success("Data saved successfully in localStorage!");
+          }
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
