@@ -17,16 +17,24 @@ const audioList = [
         console.error("Không thể tự động phát âm thanh:", err);
         // Hiển thị thông báo yêu cầu người dùng bật âm thanh
         const unmuteBtn = document.createElement("button");
-        unmuteBtn.innerText = "Bật âm thanh";
+        unmuteBtn.innerText = "🔊"; // Biểu tượng âm thanh
+        unmuteBtn.style.width = "40px";
+        unmuteBtn.style.height = "40px";
         unmuteBtn.style.position = "fixed";
-        unmuteBtn.style.bottom = "10px";
-        unmuteBtn.style.right = "10px";
-        unmuteBtn.style.padding = "10px 20px";
-        unmuteBtn.style.background = "#007bff";
-        unmuteBtn.style.color = "#fff";
-        unmuteBtn.style.border = "none";
-        unmuteBtn.style.borderRadius = "5px";
-        unmuteBtn.style.cursor = "pointer";
+        unmuteBtn.style.bottom = "15px";
+        unmuteBtn.style.right = "20px";
+        unmuteBtn.style.display = "block";  // Nút bắt đầu ở trạng thái ẩn
+        unmuteBtn.style.fontSize = "25px";
+        unmuteBtn.style.borderRadius = "50%";  // Đặt nút thành hình tròn
+        unmuteBtn.style.transition = ".2s";
+        unmuteBtn.style.letterSpacing = "1px";
+        unmuteBtn.style.textAlign = "center";
+        unmuteBtn.style.lineHeight = "40px";  // Căn chỉnh văn bản trong nút
+        unmuteBtn.style.background = "#fff";  // Màu nền của nút
+        unmuteBtn.style.color = "#ffffff";  // Màu chữ
+        unmuteBtn.style.fontWeight = "900";
+        unmuteBtn.style.lineHeight = "15px";
+        unmuteBtn.style.zIndex = "999999999999";
         document.body.appendChild(unmuteBtn);
   
         unmuteBtn.addEventListener("click", function () {

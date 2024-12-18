@@ -25,68 +25,124 @@ if (isMobileOrTablet()) {
   document.body.appendChild(popup);
 }
 
-/*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
-const sections = document.querySelectorAll('section[id]')
+// =========================GALARY============================
 
-function scrollActive() {
-  const scrollY = window.pageYOffset
+const imagePopup = document.getElementById("imagePopup");
+const popupImage = document.getElementById("popupImage");
+const closeImagePopup = document.getElementById("closeImagePopup");
+const imageLinks = document.querySelectorAll(".gallery-box ul li a");
 
-  sections.forEach(current => {
-      const sectionHeight = current.offsetHeight
-      const sectionTop = current.offsetTop - 50;
-      sectionId = current.getAttribute('id')
+// Bắt sự kiện click cho từng ảnh
+imageLinks.forEach(link => {
+  link.addEventListener("click", function (event) {
+    event.preventDefault(); // Ngăn tải lại trang
+    const imageUrl = link.getAttribute("href"); // Lấy URL của ảnh
+    popupImage.src = imageUrl; // Gán URL vào ảnh trong popup
+    imagePopup.style.display = "flex"; // Hiển thị popup
+  });
+});
 
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
-      } else {
-          document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
-      }
-  })
-}
-window.addEventListener('scroll', scrollActive)
+// Đóng popup khi nhấn vào nút đóng
+closeImagePopup.addEventListener("click", function () {
+  imagePopup.style.display = "none";
+});
 
-/*==================== CHANGE BACKGROUND HEADER ====================*/
-function scrollHeader() {
-  const nav = document.getElementById('header')
-  if (this.scrollY >= 80) nav.classList.add('scroll-header'); else nav.classList.remove('scroll-header')
-}
-window.addEventListener('scroll', scrollHeader)
+// Đóng popup khi nhấn vào vùng overlay
+imagePopup.addEventListener("click", function (event) {
+  if (event.target === imagePopup) {
+    imagePopup.style.display = "none";
+  }
+});
 
 
-/*==================== SHOW SCROLL TOP ====================*/
-function scrollTop() {
-  const scrollTop = document.getElementById('scroll-top');
-  if (this.scrollY >= 40) scrollTop.classList.add('show-scroll');
-  else scrollTop.classList.remove('show-scroll')
-}
-window.addEventListener('scroll', scrollTop)
+/* ..............................................
+  Scroll To Top
+  ................................................. */
+window.onscroll = function () {
+  var scrollToTopButton = document.getElementById("scroll-to-top");
+  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    scrollToTopButton.style.display = "block";
+  } else {
+    scrollToTopButton.style.display = "none";
+  }
+};
 
-/*==================== DARK LIGHT THEME ====================*/
-const themeButton = document.getElementById('theme-button')
-const darkTheme = 'dark-theme'
-const iconTheme = 'uil-sun'
+// Cuộn lên đầu trang khi người dùng nhấp vào nút
+document.getElementById("scroll-to-top").onclick = function () {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem('selected-theme')
-const selectedIcon = localStorage.getItem('selected-icon')
+// document.querySelectorAll("a[href^='#']").forEach(anchor => {
+//   anchor.addEventListener("click", function (e) {
+//     e.preventDefault(); // Ngừng hành động mặc định
 
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'uil-moon' : 'uil-sun'
+//     document.querySelector(this.getAttribute("href")).scrollIntoView({
+//       behavior: "smooth", // Cuộn mượt mà
+//       block: "start" // Đảm bảo cuộn tới phần bắt đầu của mục tiêu
+//     });
+//   });
+// });
 
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-  document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
-  themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme)
-}
 
-// Activate / deactivate the theme manually with the button
-themeButton.addEventListener('click', () => {
-  // Add or remove the dark / icon theme
-  document.body.classList.toggle(darkTheme)
-  themeButton.classList.toggle(iconTheme)
-  // We save the theme and the current icon that the user chose
-  localStorage.setItem('selected-theme', getCurrentTheme())
-  localStorage.setItem('selected-icon', getCurrentIcon())
-})
+
+// Chọn tất cả các phần tử có id tương ứng
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const link = document.querySelector(`a[href="#${entry.target.id}"]`);
+    if (entry.isIntersecting) {
+      // Thêm lớp active khi phần tử xuất hiện trên màn hình
+      link.classList.add('active');
+    } else {
+      // Loại bỏ lớp active khi phần tử không còn xuất hiện
+      link.classList.remove('active');
+    }
+  });
+}, {
+  threshold: 0.5 // Phần tử được coi là xuất hiện khi ít nhất 50% phần tử hiển thị trên màn hình
+});
+
+// Đăng ký observer cho mỗi section
+sections.forEach(section => observer.observe(section));
+
+
+
+
+// Set the date we're counting down to
+var countDownDate = new Date("Dec 25, 2024 00:00:00").getTime();
+
+// Update the countdown every 1 second
+var x = setInterval(function() {
+
+  // Get the current date and time
+  var now = new Date().getTime();
+  
+  // Find the distance between now and the countdown date
+  var distance = countDownDate - now;
+  
+  // Time calculations for days, hours, minutes, and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  // Display the result in the element with id="countdown-timer"
+  document.getElementById("countdown-timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+  
+  // If the countdown is finished, display a message
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown-timer").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+// JavaScript to create snowflakes dynamically
+const setting = document.getElementById("setting-btn");
+
+  // Toggle hiển thị/ẩn menu khi nhấn vào biểu tượng
+  setting.addEventListener("click", function (event) {
+    console.log(1)
+    submenu.style.display = (submenu.style.display === "block") ? "none" : "block";  // Chuyển đổi giữa hiển thị và ẩn
+  });
